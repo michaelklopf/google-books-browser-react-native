@@ -7,13 +7,17 @@
 var React = require('react-native');
 var {
   AppRegistry,
-  View
+  View,
+  Text
 } = React;
 
 var GoogleBookBrowser = React.createClass({
   render: function() {
     return (
-      <View style={styles.container}>
+      <View>
+        <Text>
+          BookBrowser
+        </Text>
       </View>
     );
   }
