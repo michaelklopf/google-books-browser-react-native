@@ -8,18 +8,28 @@ var React = require('react-native');
 var {
   AppRegistry,
   View,
-  Text
+  Text,
+  StyleSheet,
 } = React;
 
 var GoogleBookBrowser = React.createClass({
   render: function() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>
           BookBrowser
         </Text>
       </View>
     );
+  }
+});
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
