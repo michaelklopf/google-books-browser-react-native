@@ -10,10 +10,26 @@ var {
   View,
   Text,
   TextInput,
+  NavigatorIOS,
   StyleSheet,
 } = React;
 
 var GoogleBookBrowser = React.createClass({
+  render: function() {
+    return (
+      <NavigatorIOS
+        initialRoute = {{
+          component: SearchScreen,
+          title: 'Search'
+        }}
+        style={styles.navContainer}
+      />
+    )
+  }
+});
+
+// CMD+K for software keyboard in XCode Simulator
+var SearchScreen = React.createClass({
   render: function() {
     return (
       <View style={styles.container}>
@@ -25,6 +41,11 @@ var GoogleBookBrowser = React.createClass({
         </Text>
         <TextInput
           placeholder="e.g. Music or JavaScript"
+          returnKeyType="search"
+          enablesReturnKeyAutomatically={true}
+          onEndEditing={ event =>
+            console.dir(event.nativeEvent.text)
+          }
           style={styles.textInput} />
       </View>
     );
@@ -38,7 +59,11 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0099CC'
+    backgroundColor: Math.random() > 0.5 ? '#CC0066' : '#0099CC'
+  },
+
+  navContainer: {
+    flex: 1
   },
 
   headline: {
