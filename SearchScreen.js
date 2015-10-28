@@ -5,7 +5,6 @@
 'use strict';
 
 var React = require('react-native');
-var ResultsScreen = require('./ResultsScreen');
 
 var {
   View,
@@ -14,12 +13,15 @@ var {
   StyleSheet,
 } = React;
 
+var ResultsScreen = require('./ResultsScreen');
+
 // CMD+K for software keyboard in XCode Simulator
 var SearchScreen = React.createClass({
-  gotoResultsScreen: function() {
+  gotoResultsScreen: function(searchPhrase) {
     this.props.navigator.push({
       title: 'Results',
-      component: ResultsScreen
+      component: ResultsScreen,
+      passProps: { 'searchPhrase': searchPhrase }
     });
   },
 
@@ -33,11 +35,11 @@ var SearchScreen = React.createClass({
           Find books containing:
         </Text>
         <TextInput
-          placeholder="e.g. Music or JavaScript"
-          returnKeyType="search"
+          placeholder={this.props.placeholder}
+          returnKeyType='search'
           enablesReturnKeyAutomatically={true}
           onEndEditing={ event =>
-            this.gotoResultsScreen()
+            this.gotoResultsScreen(event.nativeEvent.text)
           }
           style={styles.textInput} />
       </View>
@@ -53,10 +55,6 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Math.random() > 0.5 ? '#CC0066' : '#0099CC'
-  },
-
-  navContainer: {
-    flex: 1
   },
 
   headline: {

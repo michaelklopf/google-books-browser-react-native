@@ -5,7 +5,6 @@
 'use strict';
 
 var React = require('react-native');
-var SearchScreen = require('./SearchScreen');
 
 var {
   AppRegistry,
@@ -13,13 +12,16 @@ var {
   StyleSheet,
 } = React;
 
+var SearchScreen = require('./SearchScreen');
+
 var GoogleBookBrowser = React.createClass({
   render: function() {
     return (
       <NavigatorIOS
         initialRoute = {{
           component: SearchScreen,
-          title: 'Search'
+          title: 'Search',
+          passProps: { placeholder: 'e.g. Music or JavaScript' }
         }}
         style={styles.navContainer}
       />
