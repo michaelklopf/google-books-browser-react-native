@@ -5,6 +5,8 @@
 'use strict';
 
 var React = require('react-native');
+var ResultsScreen = require('./ResultsScreen');
+
 var {
   View,
   Text,
@@ -14,6 +16,13 @@ var {
 
 // CMD+K for software keyboard in XCode Simulator
 var SearchScreen = React.createClass({
+  gotoResultsScreen: function() {
+    this.props.navigator.push({
+      title: 'Results',
+      component: ResultsScreen
+    });
+  },
+
   render: function() {
     return (
       <View style={styles.container}>
@@ -28,7 +37,7 @@ var SearchScreen = React.createClass({
           returnKeyType="search"
           enablesReturnKeyAutomatically={true}
           onEndEditing={ event =>
-            console.dir(event.nativeEvent.text)
+            this.gotoResultsScreen()
           }
           style={styles.textInput} />
       </View>
