@@ -15,6 +15,17 @@ var buildUrl = function(q) {
 };
 
 var ResultsScreen = React.createClass({
+  componentDidMount: function() {
+    this.fetchResults(this.props.searchPhrase);
+  },
+
+  fetchResults: function(searchPhrase) {
+    fetch(buildUrl(searchPhrase))
+      .then(response => response.json())
+      .then(jsonData => console.dir(jsonData))
+      .catch(error => console.dir(error));
+  },
+
   render: function() {
     return (
       <View style={styles.container}>
