@@ -8,6 +8,12 @@ var {
   StyleSheet
 } = React;
 
+var buildUrl = function(q) {
+  return 'https://www.googleapis.com/books/v1/volumes?q='
+    + encodeURIComponent(q)
+    + '&langRestrict=en&maxResults=30';
+};
+
 var ResultsScreen = React.createClass({
   render: function() {
     return (
