@@ -6,6 +6,7 @@ var {
   View,
   ListView,
   Text,
+  Image,
   StyleSheet
 } = React;
 
@@ -76,12 +77,18 @@ var ResultsScreen = React.createClass({
   renderBook: function(book) {
     return (
       <View style={styles.row}>
-        <Text style={styles.title}>
-          {book.volumeInfo.title}
-        </Text>
-        <Text style={styles.subtitle}>
-          {book.volumeInfo.subtitle}
-        </Text>
+        <Image
+          style={styles.thumbnail}
+          source={{uri: book.volumeInfo.imageLinks.smallThumbnail}}>
+        </Image>
+        <View style={styles.rightContainer}>
+          <Text style={styles.title}>
+            {book.volumeInfo.title}
+          </Text>
+          <Text style={styles.subtitle}>
+            {book.volumeInfo.subtitle}
+          </Text>
+        </View>
       </View>
     );
   }
@@ -103,18 +110,15 @@ var styles = StyleSheet.create({
   },
 
   listView: {
-
+    marginTop: 64
   },
 
   row: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#5AC8FA',
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingLeft: 20,
     paddingRight: 20,
     marginTop: 1
   },
@@ -129,6 +133,16 @@ var styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'normal',
     color: '#fff'
+  },
+
+  rightContainer: {
+    flex: 1
+  },
+
+  thumbnail: {
+    width: 70,
+    height: 108,
+    marginRight: 16
   }
 });
 
