@@ -1,12 +1,14 @@
 'use strict';
 
 var React = require('react-native');
+var BookDetails = require('./BookDetails');
 
 var {
   View,
   ListView,
   Text,
   Image,
+  TouchableHighlight,
   StyleSheet
 } = React;
 
@@ -74,22 +76,33 @@ var ResultsScreen = React.createClass({
     );
   },
 
+  showBookDetails: function(book) {
+    this.props.navigator.push({
+      title: book.volumeInfo.title,
+      component: BookDetails,
+      passProps: {book}
+    });
+  },
+
   renderBook: function(book) {
     return (
-      <View style={styles.row}>
-        <Image
-          style={styles.thumbnail}
-          source={{uri: book.volumeInfo.imageLinks.smallThumbnail}}>
-        </Image>
-        <View style={styles.rightContainer}>
-          <Text style={styles.title}>
-            {book.volumeInfo.title}
-          </Text>
-          <Text style={styles.subtitle}>
-            {book.volumeInfo.subtitle}
-          </Text>
+      <TouchableHighlight onPress={() =>
+        this.showBookDetails(book)}>
+        <View style={styles.row}>
+          <Image
+            style={styles.thumbnail}
+            source={{uri: book.volumeInfo.imageLinks.smallThumbnail}}>
+          </Image>
+          <View style={styles.rightContainer}>
+            <Text style={styles.title}>
+              {book.volumeInfo.title}
+            </Text>
+            <Text style={styles.subtitle}>
+              {book.volumeInfo.subtitle}
+            </Text>
+          </View>
         </View>
-      </View>
+      </TouchableHighlight>
     );
   }
 });
