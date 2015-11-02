@@ -10,6 +10,7 @@ var {
   Text,
   Image,
   TouchableHighlight,
+  TouchableOpacity,
   StyleSheet
 } = React;
 
@@ -74,7 +75,27 @@ var ResultsScreen = React.createClass({
           animated={this.state.animated}
           transparent={this.state.transparent}
           visible={this.state.showErrorModal}>
-          <Text>A network error occurred!</Text>
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalBody}>
+              A network error occurred!
+            </Text>
+            <View style={styles.modalButtonsContainer}>
+              <TouchableOpacity onPress={this.goBack}>
+                <View style={styles.modalButton}>
+                  <Text style={styles.modalButtonText}>
+                    &lt; Go back
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <View style={styles.modalButton}>
+                  <Text style={styles.modalButtonText}>
+                    &#8635; Retry
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
         </Modal>
       </View>
     );
@@ -96,6 +117,20 @@ var ResultsScreen = React.createClass({
       component: BookDetails,
       passProps: {book}
     });
+  },
+
+  goBack: function() {
+    this.setState({
+      showErrorModal: false
+    });
+    this.props.navigator.pop();
+  },
+
+  retry: function() {
+    this.setState({
+      showErrorModal: false
+    });
+    this.fetchResults();
   },
 
   renderBook: function(book) {
@@ -127,7 +162,7 @@ var styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#5AC8FA'
+    backgroundColor: Math.random() > 0.5 ? '#CC0066' : '#0099CC'
   },
 
   label: {
@@ -170,6 +205,44 @@ var styles = StyleSheet.create({
     width: 70,
     height: 108,
     marginRight: 16
+  },
+
+  modalContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginTop: 40,
+    marginBottom: 40
+  },
+
+  modalBody: {
+    textAlign: 'center',
+    fontSize: 18,
+    color: '#ffffff'
+  },
+
+  modalButtonsContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    top: 240
+  },
+
+  modalButton: {
+    borderColor: '#ffffff',
+    borderRadius: 4,
+    borderWidth: 1,
+    marginLeft: 20,
+    marginRight: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+
+  modalButtonText: {
+    fontSize: 18,
+    color: '#ffffff'
   }
 });
 
