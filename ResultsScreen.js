@@ -4,6 +4,7 @@ var React = require('react-native');
 var BookDetails = require('./BookDetails');
 
 var {
+  Modal,
   View,
   ListView,
   Text,
@@ -22,6 +23,9 @@ var ResultsScreen = React.createClass({
   getInitialState: function() {
     return {
       isLoading: true,
+      showErrorModal: false,
+      animated: true,
+      transparent: false,
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2
       })
@@ -42,7 +46,11 @@ var ResultsScreen = React.createClass({
         });
         console.dir(jsonData.items);
       })
-      .catch(error => console.dir(error));
+      .catch(error => {
+        this.setState({
+          showErrorModal: true
+        });
+      });
   },
 
   render: function() {
@@ -62,6 +70,12 @@ var ResultsScreen = React.createClass({
         <Text style={styles.label}>
           Please wait...
         </Text>
+        <Modal
+          animated={this.state.animated}
+          transparent={this.state.transparent}
+          visible={this.state.showErrorModal}>
+          <Text>A network error occurred!</Text>
+        </Modal>
       </View>
     );
   },
